@@ -35,10 +35,10 @@ class HuggingFaceBot(PoeBot):
         self.client = AsyncInferenceClient(model=self.model)
 
     async def query_hf_model(
-        self,
-        current_message_text: str,
-        bot_messages: list[str],
-        user_messages: list[str],
+            self,
+            current_message_text: str,
+            bot_messages: list[str],
+            user_messages: list[str],
     ) -> ConversationalOutput:
         return await self.client.conversational(
             current_message_text, bot_messages, user_messages

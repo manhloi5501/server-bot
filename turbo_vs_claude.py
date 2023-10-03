@@ -23,7 +23,7 @@ from fastapi_poe.types import (
 
 
 async def combine_streams(
-    *streams: AsyncIterator[PartialResponse],
+        *streams: AsyncIterator[PartialResponse],
 ) -> AsyncIterator[PartialResponse]:
     """Combines a list of streams into one single response stream.
 
@@ -34,7 +34,7 @@ async def combine_streams(
     responses: dict[int, list[str]] = defaultdict(list)
 
     async def _advance_stream(
-        stream_id: int, gen: AsyncIterator[PartialResponse]
+            stream_id: int, gen: AsyncIterator[PartialResponse]
     ) -> tuple[int, PartialResponse | None]:
         try:
             return stream_id, await gen.__anext__()
@@ -43,10 +43,10 @@ async def combine_streams(
 
     while active_streams:
         for coro in asyncio.as_completed(
-            [
-                _advance_stream(stream_id, gen)
-                for stream_id, gen in active_streams.items()
-            ]
+                [
+                    _advance_stream(stream_id, gen)
+                    for stream_id, gen in active_streams.items()
+                ]
         ):
             stream_id, msg = await coro
             if msg is None:
@@ -91,13 +91,13 @@ def preprocess_query(query: QueryRequest, bot: str) -> QueryRequest:
 
 
 async def stream_request_wrapper(
-    query: QueryRequest, bot: str
+        query: QueryRequest, bot: str
 ) -> AsyncIterator[PartialResponse]:
     """Wraps stream_request and labels the bot response with the bot name."""
     label = PartialResponse(text=f"**{bot.title()}** says:\n", is_replace_response=True)
     yield label
     async for msg in stream_request(
-        preprocess_query(query, bot), bot, query.access_key
+            preprocess_query(query, bot), bot, query.access_key
     ):
         if isinstance(msg, Exception):
             yield PartialResponse(

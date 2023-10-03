@@ -15,6 +15,9 @@ from turbo_vs_claude import GPT35TurbovsClaudeBot
 
 # Echo bot is a very simple bot that just echoes back the user's last message.
 bot = EchoBot()
+gptBot = GPT35TurboAllCapsBot()
+gptBot2 = GPT35TurbovsClaudeBot()
+catBot = CatBot()
 
 # A sample bot that showcases the capabilities the protocol provides. Please see the
 # following link for the full set of available message commands:
@@ -54,5 +57,6 @@ def fastapi_app():
     # by following the instructions at: https://modal.com/docs/guide/secrets
     # POE_ACCESS_KEY = ""
     # app = make_app(bot, access_key=POE_ACCESS_KEY)
-    app = make_app(bot, allow_without_key=True)
+
+    app = make_app(gptBot, access_key=POE_ACCESS_KEY)
     return app
