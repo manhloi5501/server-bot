@@ -57,6 +57,6 @@ def fastapi_app():
     # by following the instructions at: https://modal.com/docs/guide/secrets
     # POE_ACCESS_KEY = ""
     # app = make_app(bot, access_key=POE_ACCESS_KEY)
-
-    app = make_app(gptBot, access_key=POE_ACCESS_KEY)
+    poe_access_key = ""
+    app = make_app(gptBot, access_key=poe_access_key)
     return app
